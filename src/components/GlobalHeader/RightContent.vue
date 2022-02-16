@@ -48,11 +48,10 @@ export default {
     }
   },
   mounted () {
+    const that = this
     setTimeout(() => {
-      this.currentUser = {
-        name: 'Serati Ma'
-      }
-    }, 1500)
+      this.currentUser = that.$store.getters.userInfo
+    }, 500)
   }
 }
 </script>

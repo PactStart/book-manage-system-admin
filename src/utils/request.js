@@ -47,14 +47,37 @@ request.interceptors.request.use(config => {
   // 如果 token 存在
   // 让每个请求携带自定义 token 请根据实际情况自行修改
   if (token) {
-    config.headers['Access-Token'] = token
+    config.headers['token'] = token
   }
   return config
 }, errorHandler)
 
 // response interceptor
 request.interceptors.response.use((response) => {
-  return response.data
+  // console.log(response.data)
+  if (!response.data.ok) {
+    if (response.data.code === 1008) {
+      notification.error({
+        message: '登录已失效',
+        description: '重新登录'
+      })
+      // 从 localstorage 获取 token
+      const token = storage.get(ACCESS_TOKEN)
+      if (token) {
+        store.dispatch('Logout').then(() => {
+          setTimeout(() => {
+            window.location.reload()
+          }, 1500)
+        })
+      }
+    }
+    notification.error({
+      message: '请求失败',
+      description: response.data.code + ':' + response.data.message
+    })
+  } else {
+    return response.data
+  }
 }, errorHandler)
 
 const installer = {

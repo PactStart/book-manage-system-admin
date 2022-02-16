@@ -9,6 +9,9 @@ import cloneDeep from 'lodash.clonedeep'
  * @returns {boolean}
  */
 function hasPermission (permission, route) {
+  if (permission.includes('*')) {
+    return true
+  }
   if (route.meta && route.meta.permission) {
     let flag = false
     for (let i = 0, len = permission.length; i < len; i++) {

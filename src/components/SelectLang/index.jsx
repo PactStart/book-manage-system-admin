@@ -8,15 +8,15 @@ const locales = ['zh-CN', 'zh-TW', 'en-US', 'pt-BR']
 const languageLabels = {
   'zh-CN': '简体中文',
   'zh-TW': '繁体中文',
-  'en-US': 'English',
-  'pt-BR': 'Português'
+  'en-US': 'English'
+  // 'pt-BR': 'Português'
 }
 // eslint-disable-next-line
 const languageIcons = {
   'zh-CN': '🇨🇳',
   'zh-TW': '🇭🇰',
-  'en-US': '🇺🇸',
-  'pt-BR': '🇧🇷'
+  'en-US': '🇺🇸'
+  // 'pt-BR': '🇧🇷'
 }
 
 const SelectLang = {

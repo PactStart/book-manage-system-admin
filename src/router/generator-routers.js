@@ -18,6 +18,10 @@ const constantRouterComponents = {
   Workplace: () => import('@/views/dashboard/Workplace'),
   Analysis: () => import('@/views/dashboard/Analysis'),
 
+  //book
+  BookCategory: () => import('@/views/book/book-category'),
+  BookList: () => import('@/views/book/book-list'),
+
   // form
   BasicForm: () => import('@/views/form/basicForm'),
   StepForm: () => import('@/views/form/stepForm/StepForm'),

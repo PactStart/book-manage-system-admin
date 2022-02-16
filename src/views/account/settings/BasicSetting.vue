@@ -3,29 +3,29 @@
     <a-row :gutter="16" type="flex" justify="center">
       <a-col :order="isMobile ? 2 : 1" :md="24" :lg="16">
 
-        <a-form layout="vertical">
+        <a-form-model layout="vertical" :v-model="currentManager">
           <a-form-item
-            :label="$t('account.settings.basic.nickname')"
+            :label="$t('account.settings.basic.name')"
           >
-            <a-input :placeholder="$t('account.settings.basic.nickname-message')" />
+            <a-input :placeholder="$t('account.settings.basic.name-message')" v-model="currentManager.name" />
           </a-form-item>
-          <a-form-item
+          <!-- <a-form-item
             :label="$t('account.settings.basic.profile')"
           >
             <a-textarea rows="4" :placeholder="$t('account.settings.basic.profile-message')"/>
-          </a-form-item>
+          </a-form-item> -->
 
-          <a-form-item
+          <a-form-model-item
             :label="$t('account.settings.basic.email')"
             :required="false"
           >
-            <a-input placeholder="example@ant.design"/>
-          </a-form-item>
+            <a-input placeholder="example@gmail.com" v-model="currentManager.email"/>
+          </a-form-model-item>
 
-          <a-form-item>
-            <a-button type="primary">{{ $t('account.settings.basic.update') }}</a-button>
-          </a-form-item>
-        </a-form>
+          <a-form-model-item>
+            <a-button type="primary" @click="updateMy">{{ $t('account.settings.basic.update') }}</a-button>
+          </a-form-model-item>
+        </a-form-model>
 
       </a-col>
       <a-col :order="1" :md="24" :lg="8" :style="{ minHeight: '180px' }">
@@ -48,6 +48,7 @@
 <script>
 import AvatarModal from './AvatarModal'
 import { baseMixin } from '@/store/app-mixin'
+import { mapActions } from 'vuex'
 
 export default {
   mixins: [baseMixin],
@@ -72,13 +73,23 @@ export default {
         // 开启宽度和高度比例
         fixed: true,
         fixedNumber: [1, 1]
-      }
+      },
+      currentManager: {}
     }
   },
   methods: {
+    ...mapActions(['updateManager']),
     setavatar (url) {
       this.option.img = url
+    },
+    updateMy () {
+      this.updateManager(this.currentManager).then(res => {
+        this.$message.info('更新成功')
+      })
     }
+  },
+  mounted () {
+    this.currentManager = this.$store.getters.userInfo
   }
 }
 </script>
